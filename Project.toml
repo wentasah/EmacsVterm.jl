@@ -3,6 +3,9 @@ uuid = "b2ad6718-fff2-47f2-82f8-4d98a2866c7e"
 authors = ["Michal Sojka <michal.sojka@cvut.cz> and contributors"]
 version = "0.1.0"
 
+[deps]
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
 [compat]
 julia = "1"
 
