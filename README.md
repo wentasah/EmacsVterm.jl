@@ -35,4 +35,4 @@ Better integration of Julia REPL with Emacs vterm terminal.
 
 - Documentation (`@doc ...` invocation or `C-c C-d` in `julia-mode`
   buffers with `julia-repl` enabled) is shown in separate Emacs
-  buffer. Currently, this requires modified `julia-repl` package.
+  buffer. Currently, this requires [modified `julia-repl` package](https://github.com/wentasah/julia-repl/tree/emacsvterm.jl-integration).
