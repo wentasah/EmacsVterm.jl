@@ -6,7 +6,7 @@ Better integration of Julia REPL with Emacs vterm terminal.
 
 1. In Julia prompt type:
    ```
-   julia> ]develop https://github.com/wentasah/EmacsVterm.jl
+   julia> ]add EmacsVterm
    ```
 
 2. Add the following to `~/.julia/config/startup.jl`:
