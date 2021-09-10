@@ -39,11 +39,11 @@ Better integration of Julia REPL with Emacs vterm terminal.
   buffer. Currently, this requires [modified `julia-repl` package](https://github.com/tpapp/julia-repl/pull/112/files).
 
   If you are not happy with where Emacs chooses to display the
-  `*julia-doc*` buffer, you can configure it with via a "display
-  action". For example, the following piece of code in `init.el`
-  ensures that if the `*julia-doc*` buffer is already shown somewhere,
-  the same buffer is reused; otherwise, a right side window with an
-  appropriate width will be created.
+  `*julia-doc*` buffer, you can configure it via a "display action".
+  For example, the following piece of code in `init.el` ensures that
+  if the `*julia-doc*` buffer is already shown somewhere, the same
+  buffer is reused; otherwise, a right side window with an appropriate
+  width will be created.
 
   ```elisp
   (add-to-list 'display-buffer-alist '("\\*julia-doc\\*"
