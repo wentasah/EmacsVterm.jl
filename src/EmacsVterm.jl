@@ -14,10 +14,9 @@ vterm_cmd(str) = "\e]$str\e\\"
 prompt_suffix() = vterm_cmd("51;A$(user)@$(gethostname()):$(pwd())")
 eval_elisp(elisp) = vterm_cmd("51;E$(elisp)")
 
-# Show rendered Markdown in Emacs eww buffer. This is intended for
-# showing Julia documentation in separate window.
+# Show rendered Markdown in Emacs *julia-doc* buffer.
 function Base.display(d::Display, md::Markdown.MD)
-    write(d.io, eval_elisp("julia-repl--show text/html \"$(md |> Markdown.html |> Base64.base64encode)\""))
+    write(d.io, eval_elisp("julia-repl--show documentation text/html \"$(md |> Markdown.html |> Base64.base64encode)\""))
 end
 
 function __init__()
