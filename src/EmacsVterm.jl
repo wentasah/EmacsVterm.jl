@@ -4,11 +4,27 @@ import REPL
 import Base64
 import Markdown
 
+"""
+    Options
+
+Structure containing the package global options, accessible through
+`EmacsVterm.options`.
+
+# Fields
+- `markdown::Bool`: whether to send Markdown to Emacs for displaying in `*julia-doc*` buffer (default: `true`).
+- `image::Bool`: whether to send images to Emacs for displaying in `*julia-mm*` buffer (default: `false`)
+"""
+Base.@kwdef mutable struct Options
+    markdown::Bool = true
+    image::Bool = false
+end
+
 struct Display <: AbstractDisplay
     io::IO
 end
 
 EMACS = nothing
+const options = Options()
 
 const user = get(ENV, "USER", "")
 vterm_cmd(str) = "\e]$str\e\\"
@@ -17,7 +33,12 @@ eval_elisp(elisp) = vterm_cmd("51;E$(elisp)")
 
 # Show rendered Markdown in Emacs *julia-doc* buffer.
 function Base.display(d::Display, md::Markdown.MD)
-    write(d.io, eval_elisp("julia-repl--show documentation text/html \"$(md |> Markdown.html |> Base64.base64encode)\""))
+    if options.markdown
+        write(d.io, eval_elisp("julia-repl--show documentation text/html \"$(md |> Markdown.html |> Base64.base64encode)\""))
+    else
+        throw(MethodError(display, (d, md)))
+    end
+    return nothing
 end
 
 const IMAGE_MIMES = MIME[
@@ -27,7 +48,7 @@ const IMAGE_MIMES = MIME[
 ]
 
 function Base.display(d::Display, m::MIME, x)
-    if m in IMAGE_MIMES
+    if options.image && m in IMAGE_MIMES
         write(d.io, eval_elisp("julia-repl--show image $(string(m)) \"$(Base64.stringmime(m, x))\""))
     else
         throw(MethodError(display, (d, m, x)))
