@@ -19,6 +19,29 @@ function Base.display(d::Display, md::Markdown.MD)
     write(d.io, eval_elisp("julia-repl--show documentation text/html \"$(md |> Markdown.html |> Base64.base64encode)\""))
 end
 
+const IMAGE_MIMES = MIME[
+    MIME"image/png"(),
+    MIME"image/jpg"(),
+    MIME"image/jpeg"(),
+]
+
+function Base.display(d::Display, m::MIME, x)
+    if m in IMAGE_MIMES
+        write(d.io, eval_elisp("julia-repl--show image $(string(m)) \"$(Base64.stringmime(m, x))\""))
+    else
+        throw(MethodError(display, (d, m, x)))
+    end
+    return nothing
+end
+
+function Base.display(d::Display, x)
+    for mime in IMAGE_MIMES
+        if showable(mime, x)
+            return display(d, mime, x)
+        end
+    end
+end
+
 function __init__()
     if !(isinteractive() && isdefined(Base, :active_repl))
         return
