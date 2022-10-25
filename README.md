@@ -50,3 +50,10 @@ Better integration of Julia REPL with Emacs vterm terminal.
 				       (display-buffer-reuse-window display-buffer-in-side-window)
 				       (side . right) (window-width . 80)))
   ```
+- Quick disabling (resp. enabling) of sending data for display to
+  Emacs can be done with:
+
+  ```julia
+  EmacsVterm.display_off()
+  EmacsVterm.display_on()
+  ```
