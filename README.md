@@ -64,8 +64,8 @@ Better integration of Julia REPL with Emacs vterm terminal.
   EmacsVterm.options.image = true
   ```
 
-- Quick disabling (resp. enabling) of sending all types of data for
-  display to Emacs can be done with:
+- In addition to `EmacsVterm.options`, the whole Emacs-based
+  Multimedia I/O can be disabled (resp. enabled) with:
 
   ```julia
   EmacsVterm.display_off()
