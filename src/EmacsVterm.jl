@@ -42,6 +42,7 @@ function Base.display(d::Display, md::Markdown.MD)
 end
 
 const IMAGE_MIMES = MIME[
+    MIME"image/svg+xml"(),
     MIME"image/png"(),
     MIME"image/jpg"(),
     MIME"image/jpeg"(),
@@ -49,7 +50,10 @@ const IMAGE_MIMES = MIME[
 
 function Base.display(d::Display, m::MIME, x)
     if options.image && m in IMAGE_MIMES
-        write(d.io, eval_elisp("julia-repl--show image $(string(m)) \"$(Base64.stringmime(m, x))\""))
+        base64 = (m == MIME"image/svg+xml"()) ?
+            Base64.base64encode(repr("image/svg+xml", x)) :
+            Base64.stringmime(m, x)
+        write(d.io, eval_elisp("julia-repl--show image $(string(m)) \"$(base64)\""))
     else
         throw(MethodError(display, (d, m, x)))
     end
