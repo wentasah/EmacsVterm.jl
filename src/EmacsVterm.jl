@@ -12,7 +12,7 @@ Structure containing the package global options, accessible through
 
 # Fields
 - `markdown::Bool`: whether to send Markdown to Emacs for displaying in `*julia-doc*` buffer (default: `true`).
-- `image::Bool`: whether to send images to Emacs for displaying in `*julia-mm*` buffer (default: `false`)
+- `image::Bool`: whether to send images to Emacs for displaying in `*julia-img*` buffer (default: `false`)
 """
 Base.@kwdef mutable struct Options
     markdown::Bool = true
@@ -24,6 +24,8 @@ struct Display <: AbstractDisplay
 end
 
 EMACS = nothing
+
+@doc (@doc Options)
 const options = Options()
 
 const user = get(ENV, "USER", "")
