@@ -62,6 +62,7 @@ function Base.display(d::Display, x)
             return display(d, mime, x)
         end
     end
+   throw(MethodError(Base.display, (d, x)))
 end
 
 """
