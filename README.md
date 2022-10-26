@@ -35,11 +35,8 @@ Better integration of Julia REPL with Emacs vterm terminal.
   after changing directory in Julia, opening file in Emacs (e.g. `C-x
   C-f`) starts in that directory.
 
-Features below require [modified `julia-repl`
-package](https://github.com/tpapp/julia-repl/pull/112/files).
-
 - Documentation (`@doc ...` invocation or `C-c C-d` in `julia-mode`
-  buffers with `julia-repl` enabled) is shown in separate Emacs
+  buffers with `julia-repl` enabled) is shown in a separate Emacs
   buffer.
 
   To disable this functionality, run:
@@ -60,15 +57,15 @@ package](https://github.com/tpapp/julia-repl/pull/112/files).
 				       (side . right) (window-width . 80)))
   ```
 
-- Images can be shown in an Emacs buffer. This functionality is not
-  enabled by default. To enable it, run:
+- Images can be shown in the `*julia-img*` Emacs buffer. This
+  functionality is not enabled by default. Enable it with:
 
   ```julia
   EmacsVterm.options.image = true
   ```
 
-- Quick disabling (resp. enabling) of sending data for display to
-  Emacs can be done with:
+- Quick disabling (resp. enabling) of sending all types of data for
+  display to Emacs can be done with:
 
   ```julia
   EmacsVterm.display_off()
